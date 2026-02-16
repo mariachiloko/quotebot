@@ -2,7 +2,7 @@
 
 This repository is a public-safe chatbot starter.
 
-## File locations your mentor asked for
+## File locations 
 
 - Frontend chatbot logic: `chatbot.js`
 - Frontend styles: `chatbot.css`
