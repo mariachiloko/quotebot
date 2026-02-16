@@ -2,7 +2,11 @@
 
 This repository is a public-safe chatbot starter.
 
-## File locations 
+## Purpose
+
+Quotebot is for bilingual businesses that want to add a chatbot to answer questions about their own services using controlled question-and-answer content, which helps reduce hallucinations and keep replies consistent and reliable.
+
+## File locations
 
 - Frontend chatbot logic: `chatbot.js`
 - Frontend styles: `chatbot.css`
