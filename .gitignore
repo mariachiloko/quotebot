@@ -5,3 +5,5 @@ dist/
 .env
 .env.*
 chatbot.config.js
+
+backend/__pycache__/

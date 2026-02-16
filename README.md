@@ -1,33 +1,39 @@
-# Public Chatbot Starter (Safe to Share)
+# Quotebot (Public, Reusable)
 
-This folder is a clean, reusable chatbot package that avoids private business data and cloud secrets.
+This repository is a public-safe chatbot starter.
 
-## What is included
+## File locations your mentor asked for
 
-- `chatbot.js`: reusable chatbot widget + standalone mode
-- `chatbot.css`: chatbot UI styles
-- `chatbot.config.example.js`: sample config with placeholder FAQ entries
-- `demo.html`: local demo page
-- `.gitignore`: prevents private config and env files from being committed
+- Frontend chatbot logic: `chatbot.js`
+- Frontend styles: `chatbot.css`
+- Config template: `chatbot.config.example.js`
+- Backend Lambda example: `backend/lambda_function.py`
 
-## What is intentionally NOT included
+## Included
 
-- Your private FAQ data
-- Your HQ/address details
-- Your live AWS/API endpoint values
-- Terraform, Lambda, and deployment files
+- Reusable chatbot widget + standalone mode
+- Config-driven FAQ/responses (no business-specific hardcoding)
+- Quote/translate API integration (`/quote`, `/translate`)
+- Sanitized AWS Lambda backend example
+
+## Not included on purpose
+
+- Your private FAQ/business policies
+- Your HQ address/location data
+- Your live API endpoint
+- Any AWS account IDs, ARNs, keys, or secrets
 
 ## Quick start
 
-1. Copy the example config:
+1. Copy config template:
 
 ```bash
 cp chatbot.config.example.js chatbot.config.js
 ```
 
-2. Edit `chatbot.config.js` with your own business content.
+2. Edit `chatbot.config.js` with your own FAQ, links, and text.
 
-3. Load files in your page:
+3. Load files in your site:
 
 ```html
 <link rel="stylesheet" href="./chatbot.css" />
@@ -35,36 +41,20 @@ cp chatbot.config.example.js chatbot.config.js
 <script src="./chatbot.js" data-api-base="https://YOUR_API_BASE"></script>
 ```
 
-If you do not need live quote calls, leave `data-api-base` empty.
+If you do not want live quotes/translations yet, leave `data-api-base` empty.
 
-## Create a separate GitHub repository
+## Backend (optional)
 
-Run these commands from this `public-chatbot` folder:
+See `backend/README.md` and `backend/lambda_function.py`.
 
-```bash
-git init
-git add .
-git commit -m "Initial public chatbot starter"
-gh repo create your-chatbot-starter --public --source=. --remote=origin --push
-```
+The backend expects:
+- `POST /quote`
+- `POST /translate`
 
-If you do not use GitHub CLI, create an empty repo in GitHub UI and then:
+## Sync updates back to your private website repo
 
-```bash
-git branch -M main
-git remote add origin https://github.com/<your-user>/<your-repo>.git
-git push -u origin main
-```
+Yes. Keep this repo generic, then copy or cherry-pick code into your private site repo.
 
-## Sync changes back to your private website repo
-
-Yes, you can use this public repo to improve your live chatbot.
-
-Use one of these simple workflows:
-
-1. Manual copy: copy updated `chatbot.js` and `chatbot.css` from public repo into your private repo.
-2. Patch flow: create commits in public repo, then cherry-pick matching commits into private repo.
-3. Subtree flow: add public repo as a subtree in private repo, then pull updates.
-
-For most teams, option 1 is the easiest and safest.
-
+1. Make reusable changes in this repo.
+2. Copy updated files into your private repo.
+3. Add private business data only in private config files.

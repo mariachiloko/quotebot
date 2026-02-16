@@ -1,0 +1,6 @@
+{
+  "ALLOWED_ORIGINS": "https://example.com,https://www.example.com",
+  "QUOTE_ORIGIN_ADDRESS": "123 Main St, City, ST 00000",
+  "LOCATION_PLACE_INDEX": "your-place-index-name",
+  "LOCATION_ROUTE_CALCULATOR": "your-route-calculator-name"
+}

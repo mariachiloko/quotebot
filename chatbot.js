@@ -189,11 +189,24 @@
       scrollToBottom();
     }
 
+    function pickBilingualSegment(text, lang) {
+      const parts = String(text || "")
+        .split("\n")
+        .map((part) => part.trim())
+        .filter(Boolean);
+      if (parts.length <= 1) return null;
+      return lang === "es" ? parts[parts.length - 1] : parts[0];
+    }
+
     function localize(value) {
       if (value && typeof value === "object") {
         return state.userLanguage === "es"
           ? value.es || value.en || ""
           : value.en || value.es || "";
+      }
+      if (typeof value === "string") {
+        const singleLang = pickBilingualSegment(value, state.userLanguage);
+        if (singleLang) return singleLang;
       }
       return value || "";
     }
@@ -550,6 +563,22 @@
       await handleUserMessage(message);
     });
 
+    messagesEl.addEventListener("click", async (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const langChoice = target.closest(".chatbot-lang-choice");
+      if (!langChoice || !messagesEl.contains(langChoice)) return;
+      const lang = langChoice.getAttribute("data-chatbot-lang");
+      if (lang !== "en" && lang !== "es") return;
+      setLanguage(lang, true);
+      await addBotMessage(
+        lang === "es"
+          ? { en: "Language set to Spanish.", es: "Idioma cambiado a espanol." }
+          : { en: "Language set to English.", es: "Idioma cambiado a ingles." }
+      );
+      input.focus();
+    });
+
     if (toggle) {
       toggle.setAttribute("aria-expanded", "false");
       toggle.addEventListener("click", () => {
@@ -588,20 +617,22 @@
       });
     }
 
-    addBotMessage({
-      en: `<div class="chatbot-greeting"><span class="chatbot-lang-badge">EN</span><span>${escapeHtml(
-        config.strings.greeting.en
-      )}</span></div>
-           <div class="chatbot-greeting"><span class="chatbot-lang-badge">ES</span><span>${escapeHtml(
-             config.strings.greeting.es
-           )}</span></div>`,
-      es: `<div class="chatbot-greeting"><span class="chatbot-lang-badge">EN</span><span>${escapeHtml(
-        config.strings.greeting.en
-      )}</span></div>
-           <div class="chatbot-greeting"><span class="chatbot-lang-badge">ES</span><span>${escapeHtml(
-             config.strings.greeting.es
-           )}</span></div>`
-    }, true);
+    addMessage(
+      `<div class="chatbot-greeting">
+         <button class="chatbot-lang-choice" type="button" data-chatbot-lang="en">
+           <span class="chatbot-lang-badge">EN</span>
+           <span>${escapeHtml(config.strings.greeting.en)}</span>
+         </button>
+       </div>
+       <div class="chatbot-greeting">
+         <button class="chatbot-lang-choice" type="button" data-chatbot-lang="es">
+           <span class="chatbot-lang-badge">ES</span>
+           <span>${escapeHtml(config.strings.greeting.es)}</span>
+         </button>
+       </div>`,
+      "bot",
+      true
+    );
   }
 
   if (document.readyState === "loading") {

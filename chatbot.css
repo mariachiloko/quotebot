@@ -211,6 +211,31 @@
   margin-bottom: 0;
 }
 
+.chatbot-lang-choice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  border: 1px solid var(--chatbot-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  border-radius: 12px;
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.chatbot-lang-choice:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.chatbot-lang-choice:focus-visible {
+  outline: none;
+  border-color: rgba(198, 217, 255, 0.78);
+  box-shadow: 0 0 0 2px rgba(137, 167, 224, 0.28);
+}
+
 .chatbot-lang-badge {
   display: inline-flex;
   align-items: center;
